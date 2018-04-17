@@ -76,7 +76,7 @@ class Rune:
         self.setAngle(self.angle + .1)
 
     def reverse(self):
-        self.forward = !self.forward
+        self.forward = not self.forward
         self.setThrottle(throttle)
         self.setThrottle(0)
         self.setThrottle(throttle)
