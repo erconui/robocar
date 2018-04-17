@@ -30,7 +30,7 @@ while True:
 	if key in ['1','2','3','4','5','6','7','8','9']:
 		throttle = int(key)/10.0
 		print(throttle)
-		r.setThrust(throttle)
+		r.setThrottle(throttle)
 	if key == 'q':
 		break
 	#keys = pygame.key.get_pressed()
