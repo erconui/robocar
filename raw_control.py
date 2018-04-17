@@ -25,16 +25,16 @@ import Adafruit_PCA9685
 
 class Rune:
     def __init__(self):
-        self.left_pulse = 290
-        self.right_pulse = 490
+        self.left_pulse = 250
+        self.right_pulse = 520
         self.left = -1
         self.right = 1
 
         self.min_throttle = -1
         self.max_throttle = 1
-        self.min_pulse = 490
+        self.min_pulse = 460
         self.zero_pulse = 350
-        self.max_pulse = 300
+        self.max_pulse = 290
         self.forward = True
 
         self.pwm = Adafruit_PCA9685.PCA9685()
