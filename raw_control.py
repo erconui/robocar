@@ -69,6 +69,10 @@ class Rune:
                 throttle, 0, self.max_throttle, self.zero_pulse, self.max_pulse)
         self.pwm.set_pwm(1, 0, pulse)
 
+    def kill(self):
+        self.setAngle(0)
+        self.setThrottle(0)
+
     def leanLeft(self):
         self.setAngle(self.angle - .1)
 
