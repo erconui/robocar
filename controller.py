@@ -1,10 +1,10 @@
 #import pygame
 #from pygame import K_LEFT, K_RIGHT, K_UP, K_DOWN, K_0, K_1, K_2, K_3, K_4, K_5, K_6, K_7, K_8, K_9, K_q, K_r
-from raw_control import rune
+from raw_control import Rune
 from time import sleep
 from getch import _Getch
 
-r = rune()
+r = Rune()
 getch = _Getch()
 #pygame.init()
 #pygame.display.set_mode([256,256])

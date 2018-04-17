@@ -27,8 +27,10 @@ class Rune:
     def __init__(self):
         self.left_pulse = 250
         self.right_pulse = 520
-        self.left = -1
-        self.right = 1
+        self.left_angle = -1
+        self.right_angle = 1
+        self.angle = 0
+        self.throttle = 0
 
         self.min_throttle = -1
         self.max_throttle = 1
