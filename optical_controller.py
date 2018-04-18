@@ -25,7 +25,22 @@ if __name__ == '__main__':
     ret, img = cam.read()
     while True:
         ofc.calc_optic_flow(img)
-        print("%d\t%d\t%d" %(np.linalg.norm(ofc.l_avg), np.linalg.norm(ofc.c_avg), np.linalg.norm(ofc.r_avg)))
+        left, center, right = np.linalg.norm(ofc.l_avg), np.linalg.norm(ofc.c_avg), np.linalg.norm(ofc.r_avg)
+        if left - 5 > right:
+            r.setAngle(-1)
+            sleep(.1)
+            r.setAngle(1)
+            sleep(.05)
+            r.setAngle(0)
+        if right - 5 > left:
+            r.setAngle(1)
+        if center > 10:
+            r.kill()
+            break
         out.write(img)
         # img = ofc.annotate(img)
         ret, img = cam.read()
+
+cam.release()
+out.release()
+cv2.destroyAllWindows()

@@ -72,6 +72,9 @@ class Rune:
         self.pwm.set_pwm(1, 0, pulse)
 
     def kill(self):
+        r.reverse()
+        r.setThrottle(1)
+        sleep(.2)
         self.setAngle(0)
         self.setThrottle(0)
 
