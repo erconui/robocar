@@ -20,21 +20,21 @@ class OpticFlowControl():
         self.r_avg = np.zeros(2)
         self.d_avg = np.zeros(2)
         self.c_center = np.array([img_width//2, img_height//2])
-        self.l_center = np.array([100, 2*img_height//3])
-        self.r_center = np.array([img_width - 100, 2*img_height//3])
+        self.l_center = np.array([100, img_height//2])
+        self.r_center = np.array([img_width - 100, img_height//2])
         self.r_width = 200
         self.r_height = 200
         self.l_width = 200
         self.l_height = 200
-        self.c_width = img_width - 100
-        self.c_height = img_height -100
+        self.c_width = 300#img_width - 100
+        self.c_height = 300#img_height -100
         self.d_center = np.array([img_width//2, img_height//2 + 200])
 
         self.of_params = dict( winSize  = (15,15),
                                maxLevel = 3,
                                criteria = (cv2.TERM_CRITERIA_EPS | cv2.TERM_CRITERIA_COUNT, 1, 0.03))
 
-        self.feature_params = dict( maxCorners = 10,
+        self.feature_params = dict( maxCorners = 20,
                        qualityLevel = 0.03,
                        minDistance = 7,
                        blockSize = 7 )

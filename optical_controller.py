@@ -20,33 +20,37 @@ def signal_handler(signal, frame):
     sys.exit(0)
 signal.signal(signal.SIGINT, signal_handler)
 
-def leftCenter():
-    r.setAngle(-1)
-    sleep(.2)
-    r.setAngle(1)
-    sleep(.2)
-    r.setAngle(0)
-    sleep(.1)
-
-def turnLeft():
-    r.setAngle(-1)
-    sleep(.2)
-    r.setAngle(0)
-    sleep(.1)
-
 def rightCenter():
-    r.setAngle(1)
-    sleep(.2)
+    print('r-center')
     r.setAngle(-1)
-    sleep(.2)
-    r.setAngle(0)
+    sleep(.3)
+    r.setAngle(1)
     sleep(.1)
+    r.setAngle(0)
+    #sleep(.1)
 
 def turnRight():
-    r.setAngle(1)
-    sleep(.2)
+    print('r-turn')
+    r.setAngle(-1)
+    sleep(.4)
     r.setAngle(0)
+    #sleep(.1)
+
+def leftCenter():
+    print('l-center')
+    r.setAngle(1)
+    sleep(.3)
+    r.setAngle(-1)
     sleep(.1)
+    r.setAngle(0)
+    #sleep(.1)
+
+def turnLeft():
+    print('l-turn')
+    r.setAngle(1)
+    sleep(1)
+    r.setAngle(0)
+    #sleep(.1)
 
 if __name__ == '__main__':
 
@@ -61,35 +65,39 @@ if __name__ == '__main__':
     while True:
         ofc.calc_optic_flow(img)
         left, center, right = np.linalg.norm(ofc.l_avg), np.linalg.norm(ofc.c_avg), np.linalg.norm(ofc.r_avg)
-        print("%d\t%d\t%d\t-\t%d\t%d\t%d" % (left, center, right, left_count, kill_count, right_count))
+        print("%d\t%d\t%d\t-\t%d\t%d\t%d\t\t%f" % (left, center, right, left_count, kill_count, right_count, r.angle))
         if left*.9 > right:
             left_count += 1
-            if left_count > 2:
-                leftCenter()
         else:
             left_count = 0
-        if right*.9 > left:#(left > 20 and left * .8 > right) or (left - 10 > right):
+        if right*.9 > left:
             right_count += 1
-            if right_count > 2:
-                rightCenter()
         else:
             right_count = 0
-        if center > 120 and left_count != right_count:
+
+        if center > 220 and left_count == right_count:
             kill_count += 1
             if kill_count > 2:
                 print('kill')
                 r.kill()
                 break
-        elif center > 120 and left_count == 0 and right_count == 0:
-            print('veer left')
+        elif center > 120 and left_count - 1 > right_count:
             turnRight()
-            #r.setThrottle(.3)
-        elif center > 120 and right_count > left_count:
-            print('veer right')
+            left_count = 0
+            right_count = 0
+        elif center > 120 and right_count - 1 > left_count:
             turnLeft()
+            right_count = 0
+            left_count = 0
         else:
             kill_count = 0
-            #out.write(img)
+            if left*.9 > right:
+                if left_count > 2:
+                    leftCenter()
+            if right*.9 > left:#(left > 20 and left * .8 > right) or (left - 10 > right):
+                if right_count > 2:
+                    rightCenter()
+        #out.write(img)
         # img = ofc.annotate(img)
         ret, img = cam.read()
 
