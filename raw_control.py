@@ -1,5 +1,5 @@
 import Adafruit_PCA9685
-
+from time import sleep
 # pwmSteering = Adafruit_PCA9685.PCA9685()
 #
 # servo_min = 150
@@ -41,8 +41,8 @@ class Rune:
 
         self.pwm = Adafruit_PCA9685.PCA9685()
         self.pwm.set_pwm_freq(60)
-
-    # def map_range(self, x, Y_)
+        self.setAngle(0)
+        self.setThrottle(0)
 
     def getPulse(self, x, x_min, x_max, y_min, y_max):
         x_range = x_max - x_min
@@ -72,10 +72,12 @@ class Rune:
         self.pwm.set_pwm(1, 0, pulse)
 
     def kill(self):
-        r.reverse()
-        r.setThrottle(1)
-        sleep(.2)
+        self.reverse()
+        self.setThrottle(1)
+        sleep(.3)
         self.setAngle(0)
+        self.setThrottle(.1)
+        self.reverse()
         self.setThrottle(0)
 
     def leanLeft(self):
@@ -86,9 +88,9 @@ class Rune:
 
     def reverse(self):
         self.forward = not self.forward
-        self.setThrottle(throttle)
+        self.setThrottle(self.throttle)
         self.setThrottle(0)
-        self.setThrottle(throttle)
+        self.setThrottle(self.throttle)
 
     def accelerate(self):
         if abs(self.throttle) < .3:

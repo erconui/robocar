@@ -34,7 +34,7 @@ class OpticFlowControl():
                                maxLevel = 3,
                                criteria = (cv2.TERM_CRITERIA_EPS | cv2.TERM_CRITERIA_COUNT, 1, 0.03))
 
-        self.feature_params = dict( maxCorners = 100,
+        self.feature_params = dict( maxCorners = 10,
                        qualityLevel = 0.03,
                        minDistance = 7,
                        blockSize = 7 )
@@ -143,8 +143,8 @@ class OpticFlowControl():
                 mask= self.right_mask, **self.feature_params)
         self.p_left = cv2.goodFeaturesToTrack(self.prev_img,
                 mask= self.left_mask, **self.feature_params)
-        self.p_down = cv2.goodFeaturesToTrack(self.prev_img,
-                mask= self.down_mask, **self.feature_params)
+        #self.p_down = cv2.goodFeaturesToTrack(self.prev_img,
+        #        mask= self.down_mask, **self.feature_params)
 
         # Add at least one point
         if self.p_center is None:
@@ -156,9 +156,9 @@ class OpticFlowControl():
         if self.p_left is None:
             self.p_left = np.array([[[self.l_center[0],self.l_center[1]]]],
                     dtype=np.float32)
-        if self.p_down is None:
-            self.p_down = np.array([[[self.d_center[0],self.d_center[1]]]],
-                    dtype=np.float32)
+        #if self.p_down is None:
+        #    self.p_down = np.array([[[self.d_center[0],self.d_center[1]]]],
+        #            dtype=np.float32)
 
         # calculate center flow
         self.c_flow, st, err = cv2.calcOpticalFlowPyrLK(self.prev_img, img_gray,
@@ -175,13 +175,13 @@ class OpticFlowControl():
                 self.p_left, None, **self.of_params)
         self.l_avg = 20*np.mean(self.l_flow - self.p_left, axis=(0,1))
 
-        # calculate down flow
-        self.d_flow, st, err = cv2.calcOpticalFlowPyrLK(self.prev_img, img_gray,
-                self.p_down, None, **self.of_params)
-        self.d_avg = 20*np.mean(self.d_flow - self.p_down, axis=(0,1))
+        ## calculate down flow
+        #self.d_flow, st, err = cv2.calcOpticalFlowPyrLK(self.prev_img, img_gray,
+        #        self.p_down, None, **self.of_params)
+        #self.d_avg = 20*np.mean(self.d_flow - self.p_down, axis=(0,1))
 
         # self.c_avg, self.r_avg, self.l_avg = [self.c_avg, self.r_avg, self.l_avg] / (np.linalg.norm([self.c_avg, self.r_avg, self.l_avg])/20)
-        self.c_avg, self.r_avg, self.l_avg = np.array([self.c_avg, self.r_avg, self.l_avg]) /30
+        #self.c_avg, self.r_avg, self.l_avg = np.array([self.c_avg, self.r_avg, self.l_avg]) /30
 
         self.prev_img = img_gray
 
@@ -228,7 +228,7 @@ class OpticFlowControl():
 if __name__ == '__main__':
     vid = 'output.avi'
     ofc = OpticFlowControl(480, 640)
-    cap = cv2.VideoCapture(vid)
+    cap = cv2.VideoCapture(0)#vid)
 
     ret, img = cap.read()
     # print(img.shape)
