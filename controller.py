@@ -15,7 +15,6 @@ while True:
         key = getch()
         print(key)
         if key == 'a':
-                print('left')
                 r.leanLeft()
         if key == 'e':
                 r.leanRight()

@@ -87,6 +87,12 @@ class Rune:
     def leanRight(self):
         self.setAngle(self.angle - .1)
 
+    def midLeft(self):
+        self.setAngle(self.angle + .4)
+
+    def midRight(self):
+        self.setAngle(self.angle - .4)
+
     def sharpRight(self):
         self.setAngle(-1)
 
