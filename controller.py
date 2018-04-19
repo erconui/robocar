@@ -14,10 +14,10 @@ while True:
         sleep(.01)
         key = getch()
         print(key)
-        if key == 'e':
+        if key == 'a':
                 print('left')
                 r.leanLeft()
-        if key == 'a':
+        if key == 'e':
                 r.leanRight()
         if key == ',':
                 r.accelerate()

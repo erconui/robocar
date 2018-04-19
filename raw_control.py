@@ -72,19 +72,26 @@ class Rune:
         self.pwm.set_pwm(1, 0, pulse)
 
     def kill(self):
-        self.reverse()
-        self.setThrottle(1)
-        sleep(.3)
+        if abs(self.throttle) > 0:
+            self.reverse()
+            self.setThrottle(1)
+            sleep(.3)
+            self.setThrottle(.1)
+            self.reverse()
+            self.setThrottle(0)
         self.setAngle(0)
-        self.setThrottle(.1)
-        self.reverse()
-        self.setThrottle(0)
 
     def leanLeft(self):
-        self.setAngle(self.angle - .1)
+        self.setAngle(self.angle + .1)
 
     def leanRight(self):
-        self.setAngle(self.angle + .1)
+        self.setAngle(self.angle - .1)
+
+    def sharpRight(self):
+        self.setAngle(-1)
+
+    def sharpLeft(self):
+        self.setAngle(1)
 
     def reverse(self):
         self.forward = not self.forward
