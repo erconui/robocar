@@ -23,10 +23,10 @@ signal.signal(signal.SIGINT, signal_handler)
 def rightCenter():
     print('r-center')
     r.setAngle(-1)
-    sleep(.3)
-    r.setAngle(1)
-    sleep(.1)
-    r.setAngle(0)
+    sleep(.2)
+    #r.setAngle(1)
+    #sleep(.1)
+    #r.setAngle(0)
     #sleep(.1)
 
 def turnRight():
@@ -39,10 +39,10 @@ def turnRight():
 def leftCenter():
     print('l-center')
     r.setAngle(1)
-    sleep(.3)
-    r.setAngle(-1)
-    sleep(.1)
-    r.setAngle(0)
+    sleep(.2)
+    #r.setAngle(-1)
+    #sleep(.1)
+    #r.setAngle(0)
     #sleep(.1)
 
 def turnLeft():
@@ -91,12 +91,14 @@ if __name__ == '__main__':
             left_count = 0
         else:
             kill_count = 0
-            if left*.9 > right:
+            if left*.8 > right:
                 if left_count > 2:
                     leftCenter()
-            if right*.9 > left:#(left > 20 and left * .8 > right) or (left - 10 > right):
+            elif right*.8 > left:
                 if right_count > 2:
                     rightCenter()
+            else:
+                r.setAngle(0)
         #out.write(img)
         # img = ofc.annotate(img)
         ret, img = cam.read()
