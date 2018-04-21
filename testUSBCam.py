@@ -25,14 +25,14 @@ def segmentBlocks(hsv):
 
             seg_avg = np.average(segh)
             segb_avg = np.average(segb)
-            a[i].append(1 if seg_avg > 35 and seg_avg < 70 and segb_avg > 70 else 0)
+            #a[i].append(1 if seg_avg > 5 and seg_avg < 30 and segb_avg > 70 else 0)
             # a[i].append(1 if seg_avg > 90 else 0)
-            # a[i].append(int(seg_avg))
+            a[i].append(int(seg_avg))
         a.append([])
     for line in a:
         print(line)
 
-cap = cv2.VideoCapture(1)
+cap = cv2.VideoCapture(0)
 fourcc = cv2.VideoWriter_fourcc('M','J','P','G')
 out = cv2.VideoWriter('output.avi', fourcc, 20.0, (640,480))
 start_time = time.time()

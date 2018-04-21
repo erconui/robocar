@@ -56,13 +56,17 @@ while True:
         r.setAngle(0)
     
     if left_avg < .7 and right_avg < .7:
+        #if not r.forward:
         #r.setThrottle(0)#kill()
         r.reverse()
-        r.midRight()
+        if right_avg < left_avg:
+            r.midRight()
+        else:
+            r.midLeft()
         r.setThrottle(.5)
         #r.setThrottle(0)
         #r.setThrottle(.3)
-        sleep(.4)
+        sleep(.2)
         r.setAngle(0)
         r.setThrottle(.3)
         r.reverse()
